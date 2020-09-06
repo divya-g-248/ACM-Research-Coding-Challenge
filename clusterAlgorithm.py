@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import csv
 
 
-
 def calculate_WSS(points, kmax):
     sse = []
     for k in range(1, kmax+1):
@@ -21,15 +20,21 @@ def calculate_WSS(points, kmax):
         sse.append(curr_sse)
     return sse
 
+# opening file and making a matrix from it
 file = open("c:/Users/dearr/Documents/ACMCodingChallenge/Coding-Challenge/ClusterPlot.csv", "r")
 csvReader = csv.reader(file, delimiter=',')
 data = np.genfromtxt(file, delimiter= ',')
+
+# delete first row and first column
 data = np.delete(data, [0], 1)
 data = np.delete(data, [0], 0)
+
+# calling the method to calsulate WSS Scores
 numClusters = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 wssScores = []
 wssScores = calculate_WSS(data, 10)
 
+# creating graph
 plt.plot(numClusters, wssScores)
 plt.xlabel("Number of Clusters")
 plt.ylabel("WSS Scores")
